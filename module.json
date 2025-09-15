@@ -1,0 +1,116 @@
+{
+  "id": "alien-mu-th-ur",
+  "title": "Alien-Mu-Th-Ur",
+  "description": "<p>Module MU/TH/UR 6000 para Alien RPG</p>",
+  "version": "1.2.1",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "13"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "alienrpg",
+        "type": "system",
+        "compatibility": {
+          "minimum": "3.0.0"
+        }
+      }
+    ]
+  },
+  "socket": true,
+  "esmodules": [
+    "scripts/main.js",
+    "greensock/esm/all.js"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    },
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json",
+      "flags": {}
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json",
+      "flags": {}
+    },
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "lang/es.json",
+      "flags": {}
+    },
+    {
+      "lang": "it",
+      "name": "Italiano",
+      "path": "lang/it.json",
+      "flags": {}
+    },
+    {
+      "lang": "nl",
+      "name": "Nederlands",
+      "path": "lang/nl.json",
+      "flags": {}
+    },
+    {
+      "lang": "sv",
+      "name": "Svenska",
+      "path": "lang/sv.json",
+      "flags": {}
+    },
+    {
+      "lang": "no",
+      "name": "Norsk",
+      "path": "lang/no.json",
+      "flags": {}
+    },
+    {
+      "lang": "da",
+      "name": "Dansk",
+      "path": "lang/da.json",
+      "flags": {}
+    },
+    {
+      "lang": "pt-BR",
+      "name": "Português-Brasileiro",
+      "path": "lang/pt-BR.json",
+      "flags": {}
+    }
+  ],
+  "media": [
+    {
+      "loop": false,
+      "flags": {}
+    }
+  ],
+  "authors": [
+    {
+      "name": "Andrews",
+      "flags": {}
+    }
+  ],
+  "manifest": "",
+  "license": "LICENSE.txt",
+  "packs": [
+    {
+      "name": "macros",
+      "label": "Macros",
+      "path": "packs/macros",
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "alienrpg"
+    }
+  ],
+  "flags": {}
+}
