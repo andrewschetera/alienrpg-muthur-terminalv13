@@ -1749,7 +1749,50 @@ Hooks.once('ready', async () => {
     game.socket.on('module.alien-mu-th-ur', (data) => {
         if (data.type === 'muthurCommand' && game.user.isGM) {
             handleMuthurResponse(data);
-        } else if (data.type === 'muthurResponse' && !game.user.isGM) {
+        }
+        // --- GM controlando o terminal do jogador ---
+        else if (data.type === 'muthurCommand' && !game.user.isGM) {
+          if (data.userId !== game.user.id) return;
+
+          if (data.actionType === 'open') {
+            console.log("MUTHUR: recebida ordem de abertura do GM", data);
+            // Corrige estado travado de sessão ativa de outro usuário
+            if (currentMuthurSession.active && currentMuthurSession.userId !== game.user.id) {
+              currentMuthurSession.active = false;
+              currentMuthurSession.userId = null;
+              currentMuthurSession.userName = null;
+            }
+            // Fecha algum resquício de interface antiga
+            const oldBoot = document.getElementById('muthur-boot-sequence');
+            if (oldBoot) try { oldBoot.remove(); } catch(e){}
+            const oldChat = document.getElementById('muthur-chat-container');
+            if (oldChat) try { oldChat.remove(); } catch(e){}
+            // Abre sequência de boot (que chamará showMuthurInterface ao final)
+            showBootSequence();
+          }
+
+          if (data.actionType === 'close') {
+            console.log("MUTHUR: recebida ordem de fechamento do GM", data);
+            const muthurContainer = document.getElementById('muthur-chat-container');
+            if (muthurContainer) try { muthurContainer.remove(); } catch(e){}
+            const muthurBoot = document.getElementById('muthur-boot-sequence');
+            if (muthurBoot) try { muthurBoot.remove(); } catch(e){}
+
+            if (currentMuthurSession.userId === game.user.id || currentMuthurSession.active) {
+              currentMuthurSession.active = false;
+              currentMuthurSession.userId = null;
+              currentMuthurSession.userName = null;
+
+              game.socket.emit('module.alien-mu-th-ur', {
+                type: 'sessionStatus',
+                active: false
+              });
+            }
+
+            sendToGM(game.i18n.localize("MUTHUR.sessionEnded"), 'close');
+          }
+        }
+ else if (data.type === 'muthurResponse' && !game.user.isGM) {
             handleGMResponse(data);
         } else if (data.type === 'hackProgress' && game.user.isGM) {
             const gmChatLog = document.querySelector('.gm-chat-log');
